@@ -56,6 +56,11 @@ module SwiftDocs
       rescue ArgumentError
         ''
       end
+
+      def as_url(prefix = '/')
+        pretty_path = path[SwiftDocs.doc_path.length..-1].chomp('.md')
+        "#{prefix}#{pretty_path}".gsub(/\/+/, '/')
+      end
     end
 
   end
