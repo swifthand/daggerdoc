@@ -17,12 +17,13 @@ module SwiftDocs
 
     use Rack::Deflater
 
+
     def render_doc(path, **locals)
-      erb :document, locals: { document: CommonMarker.render_html(File.read(path)) }.merge(locals)
+      erb :document, locals: { document: render_markdown(path) }.merge(locals)
     end
 
-    def title_from_route(route)
-
+    def render_markdown(path)
+      CommonMarker.render_html(File.read(path), SwiftDocs.cmark_options)
     end
 
     get '/docs/*' do
@@ -37,6 +38,7 @@ module SwiftDocs
         status 200
         render_doc doc_path, {
           doc_route:  doc_route,
+          doc_path:   doc_path,
           title:      doc_route.chomp('.md').split('/').last.titleize
         }
       else
@@ -56,7 +58,14 @@ module SwiftDocs
       end
     end
 
-    # TODO: Add a root route with a list of docs?
+
+    get '/' do
+      tree = SwiftDocs::DirectoryTree.new(SwiftDocs.doc_path).to_h
+      # TODO: Tree Trimming algo that cuts off empty branches.
+      erb :directory_index, layout: false, locals: { tree: tree }
+    end
 
   end
 end
+
+

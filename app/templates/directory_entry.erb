@@ -1,0 +1,3 @@
+<% if entry != :depth_limit %>
+  <li><a href="/docs/<%= entry.path[SwiftDocs.doc_path.length..-1].chomp('.md') %>"><%= entry.path %></a></li>
+<% end %>

@@ -1,3 +1,4 @@
 {
-  "doc_path" : "docs"
+  "doc_path"      : "docs",
+  "cmark_options" : "hardbreaks"
 }

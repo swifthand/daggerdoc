@@ -1,0 +1,12 @@
+<% tree.each do |path, entry| %>
+  <% if Array === entry && entry.any? %>
+    <li><strong><%= File.split(path).last %></strong></li>
+    <ul>
+      <% entry.each do |content| %>
+        <%= erb :directory_tree, layout: false, locals: { tree: content } %>
+      <% end %>
+    </ul>
+  <% elsif !(Array === entry) %>
+    <%= erb :directory_entry, layout: false, locals: { entry: entry } %>
+  <% end %>
+<% end %>

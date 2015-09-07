@@ -9,19 +9,29 @@
   <link rel="stylesheet" href="/assets/normalize.css">
   <link rel="stylesheet" href="/assets/skeleton.css">
   <link rel="stylesheet" href="/assets/app.css">
-  <title><%= defined?(title) ? title : "SwiftDocs" %></title>
+  <title>SwiftDocs</title>
 </head>
 
 <body>
   <div class="container">
     <div class="row">
-      <div class="location-bar">This Doc: <a href="file://<%= doc_path%>"><code><%= doc_route %></code></a></div>
+      <div class="location-bar">&nbsp;</div>
     </div>
   </div>
-  <div class="container first-content">
-    <div class="row">
+  <div class="container">
+    <div class="row first-content">
       <div>
-        <%= yield %>
+        <b>Listing Documents Found Within</b><br>
+        <code><%= SwiftDocs.doc_path %></code>
+      </div>
+    </div>
+    <div class="row first-content">
+      <div>
+        <ul>
+          <% tree.values.first.each do |content| %>
+            <%= erb :directory_tree, layout: false, locals: { tree: content } %>
+          <% end %>
+        </ul>
       </div>
     </div>
   </div>
