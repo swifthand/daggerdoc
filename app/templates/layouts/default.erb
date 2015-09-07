@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="/assets/normalize.css">
+  <link rel="stylesheet" href="/assets/skeleton.css">
+  <link rel="stylesheet" href="/assets/app.css">
+  <title><%= defined?(title) ? title : "SwiftDocs" %></title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="location-bar">This Doc: <code><%= doc_route %></code></div>
+    </div>
+  </div>
+  <div class="container first-content">
+    <div class="row">
+      <div>
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
