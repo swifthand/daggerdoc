@@ -43,8 +43,8 @@ I may never get around to any of these:
 - Some JavaScript to update the page's content on file system events. WebSockets?
 - Improve the index page (currently shows folders five layers deep even if they have no markdown files).
 - Maybe care about other OSes. Maybe.
-- I don't think I'm using ActiveSupport for much. Could probably be removed or used even more. Both work for me.
+- I don't think I'm using ActiveSupport for much. Could probably be removed or used more often. Both are fine.
 
 ### Love Letters
 
-The [CommonMark](http://commonmark.org/) project, the [commonmarker](https://github.com/gjtorikian/commonmarker/) gem and of course [Sinatra](http://www.sinatrarb.com/).
+The [CommonMark](http://commonmark.org/) project, the [commonmarker](https://github.com/gjtorikian/commonmarker/) gem, [Skeleton CSS](http://getskeleton.com/) and of course [Sinatra](http://www.sinatrarb.com/).
