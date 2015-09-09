@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Read first argument as Document Path
+DOC_PATH=`readlink -f $1`
+if [[ -d "$DOC_PATH" ]] ; then
+
+  if [[ -s "$rvm_path/scripts/rvm" ]] ; then
+    RVM_FOUND_AT="$HOME/.rvm/scripts/rvm"
+    echo "Using ruby via rvm (found at $rvm_path/scripts/rvm)"
+  elif [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
+    RVM_FOUND_AT="$HOME/.rvm/scripts/rvm"
+    echo "Using ruby via rvm (found at $HOME/.rvm/scripts/rvm)"
+  elif [[ -s "/usr/local/rvm/scripts/rvm" ]] ; then
+    RVM_FOUND_AT="/usr/local/rvm/scripts/rvm"
+    echo "Using ruby root rvm install (found at /usr/local/rvm/scripts/rvm)"
+  fi
+
+  if [[ -s "$RVM_FOUND_AT" ]] ; then
+    source "$RVM_FOUND_AT"
+  fi
+
+  ( cd /home/chao/code/hbi-docs/ &&
+    rvm use ruby-2.2.3@hbi-docs &&
+    export DOC_PATH="$DOC_PATH" &&
+    exec rackup -D
+  )
+else
+  ( cd /home/chao/code/hbi-docs/ &&
+    rvm use ruby-2.2.3@hbi-docs &&
+    exec rackup -D
+  )
+fi
+
+# Open a browser with daggerdoc
+exec /usr/bin/env x-www-browser http://127.0.0.1:9292/

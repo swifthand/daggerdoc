@@ -11,8 +11,8 @@ module SwiftDocs
                       secure:       production?,
                       secret:       ENV['SINATRA_SESSION_SECRET']
 
-      set :views, 'app/templates'
-      set :erb,   layout: :default, layout_options: { views: 'app/templates/layouts' }
+      set :views, File.join(SwiftDocs.root, 'app/templates')
+      set :erb,   layout: :default, layout_options: { views: File.join(SwiftDocs.root, 'app/templates/layouts') }
     end
 
     use Rack::Deflater

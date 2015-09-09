@@ -36,7 +36,7 @@ module SwiftDocs
 
 
     def dot_entry?(entry)
-      entry == '.' || entry == '..'
+      entry == '.' || entry == '..' || entry == '.git'
     end
 
 
