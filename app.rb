@@ -1,4 +1,4 @@
-module SwiftDocs
+module DaggerDoc
   class App < Sinatra::Application
 
     configure do
@@ -11,8 +11,8 @@ module SwiftDocs
                       secure:       production?,
                       secret:       ENV['SINATRA_SESSION_SECRET']
 
-      set :views, File.join(SwiftDocs.root, 'app/templates')
-      set :erb,   layout: :default, layout_options: { views: File.join(SwiftDocs.root, 'app/templates/layouts') }
+      set :views, File.join(DaggerDoc.root, 'app/templates')
+      set :erb,   layout: :default, layout_options: { views: File.join(DaggerDoc.root, 'app/templates/layouts') }
     end
 
     use Rack::Deflater
@@ -23,7 +23,7 @@ module SwiftDocs
     end
 
     def render_markdown(path)
-      CommonMarker.render_html(File.read(path), SwiftDocs.cmark_options)
+      CommonMarker.render_html(File.read(path), DaggerDoc.cmark_options)
     end
 
     get '/docs/*' do
@@ -32,7 +32,7 @@ module SwiftDocs
                   else
                     "#{params[:splat].last}.md"
                   end
-      doc_path  = File.join(SwiftDocs.doc_path, doc_route)
+      doc_path  = File.join(DaggerDoc.doc_path, doc_route)
 
       if File.exist?(doc_path)
         status 200
@@ -49,7 +49,7 @@ module SwiftDocs
 
 
     get '/assets/*' do
-      asset_path = File.join(SwiftDocs.root, 'app/assets', params[:splat].last)
+      asset_path = File.join(DaggerDoc.root, 'app/assets', params[:splat].last)
       if File.exist?(asset_path)
         send_file(asset_path, disposition: 'inline')
       else
@@ -60,7 +60,7 @@ module SwiftDocs
 
 
     get '/' do
-      tree = SwiftDocs::DirectoryTree.new(SwiftDocs.doc_path).to_h
+      tree = DaggerDoc::DirectoryTree.new(DaggerDoc.doc_path).to_h
       # TODO: Tree Trimming algo that cuts off empty branches.
       erb :directory_index, layout: false, locals: { tree: tree }
     end

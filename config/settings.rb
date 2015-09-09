@@ -1,4 +1,4 @@
-module SwiftDocs
+module DaggerDoc
   def self.settings
     @settings ||= JSON.parse(File.read(File.expand_path('../settings.json', __FILE__)))
   end

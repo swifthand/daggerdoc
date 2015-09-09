@@ -1,4 +1,4 @@
-module SwiftDocs
+module DaggerDoc
   class DirectoryTree
 
     attr_reader :entries, :root, :max_depth
@@ -19,7 +19,7 @@ module SwiftDocs
       return { path => :depth_limit } if depth <= 0
       if File.directory?(path)
         { path  => Dir.foreach(path)
-                      .reject(&method(:dot_entry?))
+                      .reject(&method(:ignore_path?))
                       .map(&method(:to_path).with(path))
                       .map(&method(:build_tree_hash).with(depth - 1))
                       .compact
@@ -35,8 +35,8 @@ module SwiftDocs
     end
 
 
-    def dot_entry?(entry)
-      entry == '.' || entry == '..' || entry == '.git'
+    def ignore_path?(entry)
+      entry.start_with?('.')
     end
 
 
@@ -58,7 +58,7 @@ module SwiftDocs
       end
 
       def as_url(prefix = '/')
-        pretty_path = path[SwiftDocs.doc_path.length..-1].chomp('.md')
+        pretty_path = path[DaggerDoc.doc_path.length..-1].chomp('.md')
         "#{prefix}#{pretty_path}".gsub(/\/+/, '/')
       end
     end

@@ -1,32 +1,42 @@
 #!/bin/bash
 
 # Read first argument as Document Path
-DOC_PATH=`readlink -f $1`
+if [[ "$#" -ge 1 ]] ; then
+  DOC_PATH=`readlink -f $1`
+else
+  DOC_PATH=""
+fi
+
+# Set up RVM if we can find it.
+if [[ -s "$rvm_path/scripts/rvm" ]] ; then
+  RVM_FOUND_AT="$HOME/.rvm/scripts/rvm"
+  echo "Using ruby via rvm (found at $rvm_path/scripts/rvm)"
+elif [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
+  RVM_FOUND_AT="$HOME/.rvm/scripts/rvm"
+  echo "Using ruby via rvm (found at $HOME/.rvm/scripts/rvm)"
+elif [[ -s "/usr/local/rvm/scripts/rvm" ]] ; then
+  RVM_FOUND_AT="/usr/local/rvm/scripts/rvm"
+  echo "Using ruby root rvm install (found at /usr/local/rvm/scripts/rvm)"
+fi
+
+# Set DOC_PATH if it was given as a command line argument.
 if [[ -d "$DOC_PATH" ]] ; then
-
-  if [[ -s "$rvm_path/scripts/rvm" ]] ; then
-    RVM_FOUND_AT="$HOME/.rvm/scripts/rvm"
-    echo "Using ruby via rvm (found at $rvm_path/scripts/rvm)"
-  elif [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
-    RVM_FOUND_AT="$HOME/.rvm/scripts/rvm"
-    echo "Using ruby via rvm (found at $HOME/.rvm/scripts/rvm)"
-  elif [[ -s "/usr/local/rvm/scripts/rvm" ]] ; then
-    RVM_FOUND_AT="/usr/local/rvm/scripts/rvm"
-    echo "Using ruby root rvm install (found at /usr/local/rvm/scripts/rvm)"
-  fi
-
   if [[ -s "$RVM_FOUND_AT" ]] ; then
     source "$RVM_FOUND_AT"
   fi
 
-  ( cd /home/chao/code/hbi-docs/ &&
-    rvm use ruby-2.2.3@hbi-docs &&
+  ( cd /home/chao/code/daggerdoc/ &&
+    rvm use ruby-2.2.3@daggerdoc &&
     export DOC_PATH="$DOC_PATH" &&
     exec rackup -D
   )
 else
-  ( cd /home/chao/code/hbi-docs/ &&
-    rvm use ruby-2.2.3@hbi-docs &&
+  if [[ -s "$RVM_FOUND_AT" ]] ; then
+    source "$RVM_FOUND_AT"
+  fi
+
+  ( cd /home/chao/code/daggerdoc/ &&
+    rvm use ruby-2.2.3@daggerdoc &&
     exec rackup -D
   )
 fi

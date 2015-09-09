@@ -1,3 +1,3 @@
 require './config/env'
 
-run SwiftDocs::App
+run DaggerDoc::App
