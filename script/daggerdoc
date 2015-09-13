@@ -28,7 +28,7 @@ if [[ -d "$DOC_PATH" ]] ; then
   ( cd /home/chao/code/daggerdoc/ &&
     rvm use ruby-2.2.3@daggerdoc &&
     export DOC_PATH="$DOC_PATH" &&
-    exec rackup -D
+    exec rackup --daemonize --env production --host 0.0.0.0
   )
 else
   if [[ -s "$RVM_FOUND_AT" ]] ; then
@@ -37,7 +37,7 @@ else
 
   ( cd /home/chao/code/daggerdoc/ &&
     rvm use ruby-2.2.3@daggerdoc &&
-    exec rackup -D
+    exec rackup --daemonize --env production --host 0.0.0.0
   )
 fi
 

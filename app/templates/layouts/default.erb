@@ -15,7 +15,10 @@
 <body>
   <div class="container">
     <div class="row">
-      <div class="location-bar">This Doc: <a href="file://<%= doc_path%>"><code><%= doc_route %></code></a></div>
+      <div class="location-bar">
+        <div class="location-bar-entry"><label>Doc Root:</label> <a href="/"><code><%= DaggerDoc.doc_path %></code></a></div>
+        <div class="location-bar-entry"><label>This Doc:</label> <a href="file://<%= doc_path %>"><code>/<%= doc_route %></code></a></div>
+      </div>
     </div>
   </div>
   <div class="container first-content">

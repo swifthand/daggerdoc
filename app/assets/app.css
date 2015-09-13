@@ -4,13 +4,25 @@
   font-weight: 600;
   letter-spacing: .2rem;
   text-decoration: none;
-  line-height: 5rem;
+  min-height: 5rem;
   border-bottom: 1px solid #E1E1E1;
 }
 
 .location-bar code {
   text-transform: none;
   font-weight: normal;
+}
+
+.location-bar label {
+  display: inline-block;
+  width: 10rem;
+}
+
+.location-bar-entry {
+  display: inline-block;
+  margin-top: 1.9rem;
+  margin-bottom: 1.9rem;
+  margin-right: 2rem;
 }
 
 .location-bar a {

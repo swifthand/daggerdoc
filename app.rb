@@ -49,9 +49,12 @@ module DaggerDoc
 
 
     get '/assets/*' do
-      asset_path = File.join(DaggerDoc.root, 'app/assets', params[:splat].last)
-      if File.exist?(asset_path)
-        send_file(asset_path, disposition: 'inline')
+      app_asset_path = File.join(DaggerDoc.root, 'app/assets', params[:splat].last)
+      doc_asset_path = File.join(DaggerDoc.doc_path, params[:splat].last)
+      if File.exist?(app_asset_path)
+        send_file(app_asset_path, disposition: 'inline')
+      elsif File.exist?(doc_asset_path)
+        send_file(doc_asset_path, disposition: 'inline')
       else
         status 404
         ""
